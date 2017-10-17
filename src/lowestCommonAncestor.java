@@ -65,6 +65,7 @@ class treeNode{
 public class lowestCommonAncestor {
 
 	public static void main(String[] args) {
+		/*
 		treeNode root = new treeNode(7);
 		root.left = new treeNode(9);
 		
@@ -91,7 +92,7 @@ public class lowestCommonAncestor {
 		
 		int result = root.lowestCommonAncestor(root, Jack, Fred).getData();
 		System.out.print(result);
-
+		*/
 	}
 	
 }
