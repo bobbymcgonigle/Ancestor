@@ -61,22 +61,36 @@ class treeNode{
 	}
 }
 
-class tree{
-	treeNode root;
-	
-	public tree() {
-		root = null;
-	}
-	
-	public tree(treeNode node) {
-		root = node;
-	}
-	
-}
+
 public class lowestCommonAncestor {
 
 	public static void main(String[] args) {
+		treeNode root = new treeNode(7);
+		root.left = new treeNode(9);
 		
+		treeNode Dave = new treeNode(5);
+		root.right = Dave;
+		
+		root.left.left = new treeNode(4);
+		root.left.right = new treeNode(11);
+		root.left.left.left = new treeNode(17);
+		root.left.left.right = new treeNode(27);
+		root.left.right.left = new treeNode(1);
+		root.left.right.right = new treeNode(91);
+		root.right.left = new treeNode(13);
+		root.right.left.left = new treeNode(72);
+		
+		treeNode Jack = new treeNode(14);
+		root.right.left.right = Jack;
+		
+		treeNode Fred = new treeNode(46);
+		root.right.right = Fred;
+		
+		root.right.right.left = new treeNode(12);
+		root.right.right.right = new treeNode(3);
+		
+		int result = root.lowestCommonAncestor(root, Jack, Fred).getData();
+		System.out.print(result);
 
 	}
 	
