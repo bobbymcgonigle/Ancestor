@@ -41,7 +41,7 @@ class lowestCommonAncestorTest {
 		/*Explanation of this test
 		 * 
 		 * !!!All of the nodes to the left of 7 are irrelevant as I didn't use them in the test but they are written in the code
-		 * just in case I decid to write more tests
+		 * just in case I decide to write more tests
 		 *     
 		 * 
 		 *       			(7)
@@ -55,7 +55,9 @@ class lowestCommonAncestorTest {
 		 *                   |
 		 *                  JACK
 		 *                  
-		 * Therefore, the least common ancestor of Fred and Jack should be Dave
+		 * Therefore, the least common ancestor of Fred and Jack should be Dave.
+		 * For some reason, when I commit this to github the formatting goes all funky.
+		 * So, for easier reference, Dave is 5, Fred is 46, and Jack is 14
 		 */
 		treeNode root1 = new treeNode(7);
 		root1.left = new treeNode(9);
