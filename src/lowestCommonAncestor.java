@@ -105,7 +105,7 @@ class DAGnode {
 	
 	void colorAllAncestors(DAGnode theNode, String nodeColor) {
 		if (nodeColor != null) {
-			while (theNode != null) {
+			if(theNode != null) {
 				theNode.color = nodeColor;
 				if (!theNode.parents.isEmpty()) {
 					for (int i = 0; i < theNode.parents.size(); i++) {
@@ -121,15 +121,16 @@ class DAGnode {
 	
 	void colorAllCommonAncestors(DAGnode theNode, String newColor, String oldColor) {
 		if (newColor != null && oldColor != null) {
-			while (theNode != null) {
+			if(theNode != null) {
 				if (theNode.color == oldColor) {
 					theNode.color = newColor;
-					if (!theNode.parents.isEmpty()) {
-						for (int i = 0; i < theNode.parents.size(); i++) {
-							colorAllCommonAncestors(theNode.parents.get(i), newColor, oldColor);
-						}
+				}
+				if (!theNode.parents.isEmpty()) {
+					for (int i = 0; i < theNode.parents.size(); i++) {
+						colorAllCommonAncestors(theNode.parents.get(i), newColor, oldColor);
 					}
 				}
+				
 			}
 		}
 	}
@@ -167,7 +168,7 @@ class DAGnode {
 
 	public ArrayList<DAGnode> lowestCommonAncestor(DAGnode head, DAGnode p, DAGnode q) {
 		ArrayList<DAGnode> lowestCommonAncestors = new ArrayList();
-		if (p == q) {
+		if (p.data == q.data) {
 			lowestCommonAncestors.add(p);
 			return lowestCommonAncestors;
 		}
@@ -199,14 +200,40 @@ class DAGnode {
 //Dear person grading this, really sorry this is so long, decided to just take a glance at the problem and code it all myself.
 //There is probably a lot of poor efficiency and needless code in here; I'm out of practice.
 
+//Gonna test the solution in main using a DAG that looks as follows: https://i.stack.imgur.com/Cjn5H.png
+
+
 public class lowestCommonAncestor {
 
 	public static void main(String[] args) {
 		
-		DAGnode head = new DAGnode
+		DAGnode head = new DAGnode(0);
+		DAGnode node1 = new DAGnode(1);
+		DAGnode node2 = new DAGnode(2);
+		DAGnode node3 = new DAGnode(3);
+		DAGnode node4 = new DAGnode(4);
+		DAGnode node5 = new DAGnode(5);
+		
+		head.addChild(node2);
+		head.addChild(node1);
+		
+		node2.addChild(node3);
+		node2.addChild(node5);
+		
+		node1.addChild(node5);
+		node1.addChild(node4);
+		
+		node3.addChild(node4);
 		
 		
 		
+		ArrayList<DAGnode> myList = head.lowestCommonAncestor(head, node4, node5);
+		
+		
+		
+		for(int i = 0; i < myList.size(); i++) {
+			System.out.println(myList.get(i).data);
+		}
 		
 		
 		

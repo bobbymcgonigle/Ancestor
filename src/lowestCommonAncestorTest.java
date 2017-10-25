@@ -3,7 +3,7 @@ import static org.junit.jupiter.api.Assertions.*;
 import org.junit.jupiter.api.Test;
 
 class lowestCommonAncestorTest {
-
+	/*
 	@Test
 	public void treeNodeTest() {
 		treeNode tester = new treeNode();
@@ -37,7 +37,7 @@ class lowestCommonAncestorTest {
 		assertEquals(thing.lowestCommonAncestor(thing, thing, null), thing);
 		assertEquals(thing.lowestCommonAncestor(thing, null, thing), thing);
 		assertEquals(thing.lowestCommonAncestor(null, null, null), null);
-		
+	*/
 		/*Explanation of this test
 		 * 
 		 * !!!All of the nodes to the left of 7 are irrelevant as I didn't use them in the test but they are written in the code
@@ -59,6 +59,8 @@ class lowestCommonAncestorTest {
 		 * For some reason, when I commit this to github the formatting goes all funky.
 		 * So, for easier reference, Dave is 5, Fred is 46, and Jack is 14
 		 */
+	
+		/*
 		treeNode root1 = new treeNode(7);
 		root1.left = new treeNode(9);
 		
@@ -85,7 +87,33 @@ class lowestCommonAncestorTest {
 		
 		int result = root1.lowestCommonAncestor(root1, Jack, Fred).getData();
 		assertEquals(result, Dave.getData());
+		
+	
+	
 	}
+	*/
 
-
+	
+	@Test
+	public void DAGnodeTest() {
+		treeNode tester = new treeNode();
+		assertEquals(tester.left, null);
+		assertEquals(tester.right, null);
+		assertEquals(tester.data, 0);
+		
+		tester.addData(2);
+		assertEquals(tester.data, 2);
+		
+		assertEquals(tester.getLeft(), null);
+		assertEquals(tester.getRight(), null);
+		
+		treeNode tester2 = new treeNode(5);
+		assertEquals(tester2.data, 5);
+		
+		tester2.addLeft(new treeNode(17));
+		assertEquals(tester2.getLeft().getData(), 17);
+		
+		tester2.addRight(new treeNode(15));
+		assertEquals(tester2.getRight().getData(), 15);
+	}
 }
