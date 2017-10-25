@@ -1,5 +1,7 @@
 import static org.junit.jupiter.api.Assertions.*;
 
+import java.util.ArrayList;
+
 import org.junit.jupiter.api.Test;
 
 class lowestCommonAncestorTest {
@@ -122,5 +124,42 @@ class lowestCommonAncestorTest {
 		assertEquals(tester.children.get(0), tester2);
 	}
 	
-	
+	//outlined in main, but the graph I'm using to test from the beginning can be found here: https://i.stack.imgur.com/Cjn5H.png
+	@Test
+	public void lowestCommonAncestorDAGTest() {
+		
+		DAGnode head = new DAGnode(0);
+		DAGnode node1 = new DAGnode(1);
+		DAGnode node2 = new DAGnode(2);
+		DAGnode node3 = new DAGnode(3);
+		DAGnode node4 = new DAGnode(4);
+		DAGnode node5 = new DAGnode(5);
+		
+		head.addChild(node2);
+		head.addChild(node1);
+		
+		node2.addChild(node3);
+		node2.addChild(node5);
+		
+		node1.addChild(node5);
+		node1.addChild(node4);
+		
+		node3.addChild(node4);
+		
+		ArrayList<DAGnode> myList = head.lowestCommonAncestor(head, node4, node5);
+		
+		assertEquals(myList.get(0), node2);
+		assertEquals(myList.get(1), node1);
+		
+		ArrayList<DAGnode> myList2 = head.lowestCommonAncestor(head, node4, node4);
+		assertEquals(myList2.get(0), node4);
+		
+		ArrayList<DAGnode> myList3 = head.lowestCommonAncestor(null, node4, node4);
+		assertEquals(myList3, null);
+		
+		ArrayList<DAGnode> myList4 = head.lowestCommonAncestor(head, null, node4);
+		assertEquals(myList4, null);
+		
+		
+	}
 }

@@ -103,6 +103,7 @@ class DAGnode {
 	
 	//this method takes an inputed node, and gives all of its ancestors a color, recursively
 	
+	
 	void colorAllAncestors(DAGnode theNode, String nodeColor) {
 		if (nodeColor != null) {
 			if(theNode != null) {
@@ -167,32 +168,38 @@ class DAGnode {
 	}
 
 	public ArrayList<DAGnode> lowestCommonAncestor(DAGnode head, DAGnode p, DAGnode q) {
-		ArrayList<DAGnode> lowestCommonAncestors = new ArrayList();
-		if (p.data == q.data) {
-			lowestCommonAncestors.add(p);
+		if(head != null && p != null && q != null) {
+			ArrayList<DAGnode> lowestCommonAncestors = new ArrayList();
+			if (p.data == q.data) {
+				lowestCommonAncestors.add(p);
+				return lowestCommonAncestors;
+			}
+
+			if (p.parents.isEmpty() && q.parents.isEmpty()) {
+				return null;
+			}
+
+			if (p.parents.isEmpty() || q.parents.isEmpty()) {
+				lowestCommonAncestors.add(p);
+				return lowestCommonAncestors;
+			}
+
+			String pColor = "red";
+			colorAllAncestors(p, pColor);
+
+			String qColor = "blue";
+			colorAllCommonAncestors(q, qColor, pColor);
+
+			counting(head, qColor);
+			
+			findAnswers(head, lowestCommonAncestors, qColor);
+			
 			return lowestCommonAncestors;
 		}
-
-		if (p.parents.isEmpty() && q.parents.isEmpty()) {
+		else {
 			return null;
 		}
-
-		if (p.parents.isEmpty() || q.parents.isEmpty()) {
-			lowestCommonAncestors.add(p);
-			return lowestCommonAncestors;
-		}
-
-		String pColor = "red";
-		colorAllAncestors(p, pColor);
-
-		String qColor = "blue";
-		colorAllCommonAncestors(q, qColor, pColor);
-
-		counting(head, qColor);
 		
-		findAnswers(head, lowestCommonAncestors, qColor);
-		
-		return lowestCommonAncestors;
 	}
 
 }
@@ -206,7 +213,7 @@ class DAGnode {
 public class lowestCommonAncestor {
 
 	public static void main(String[] args) {
-		
+		/*
 		DAGnode head = new DAGnode(0);
 		DAGnode node1 = new DAGnode(1);
 		DAGnode node2 = new DAGnode(2);
@@ -234,7 +241,7 @@ public class lowestCommonAncestor {
 		for(int i = 0; i < myList.size(); i++) {
 			System.out.println(myList.get(i).data);
 		}
-		
+		*/
 		
 		
 		
