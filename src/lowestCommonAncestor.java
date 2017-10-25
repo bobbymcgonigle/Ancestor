@@ -1,5 +1,9 @@
  import java.util.Scanner;
+ import java.util.Arrays;
+ import java.util.ArrayList;
  
+
+/*
 class treeNode{
 	treeNode left, right;
 	int data;
@@ -60,7 +64,46 @@ class treeNode{
 	    }
 	}
 }
-
+*/
+ class DAGnode{
+	 ArrayList<DAGnode> parents;
+	 ArrayList<DAGnode> children;
+	 int data;
+	 String color;
+	 int count;
+	 
+	 public DAGnode() {
+		 data = 0;
+		 color = "white";
+		 count = 0;
+		 parents = null;
+		 children = null;
+	 }
+	 
+	 public DAGnode(int input) {
+		 data = input;
+		 color = "white";
+		 count = 0;
+		 parents = null;
+		 children = null;
+	 }
+	 
+	 void addChild(DAGnode child) {
+		 children.add(child);
+		 child.parents.add(this);
+	 }
+	 
+	 void addColor(String input) {
+		 color = input;
+	 }
+	 
+	 void increment() {
+		 count++;
+	 }
+	 
+	 
+ }
+ 
 
 public class lowestCommonAncestor {
 
