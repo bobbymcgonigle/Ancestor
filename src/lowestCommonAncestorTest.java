@@ -96,24 +96,31 @@ class lowestCommonAncestorTest {
 	
 	@Test
 	public void DAGnodeTest() {
-		treeNode tester = new treeNode();
-		assertEquals(tester.left, null);
-		assertEquals(tester.right, null);
+		DAGnode tester = new DAGnode();
+		assertEquals(tester.parents.isEmpty(), true);
+		assertEquals(tester.children.isEmpty(), true);
 		assertEquals(tester.data, 0);
+		assertEquals(tester.color, "white");
+		assertEquals(tester.count, 0);
 		
-		tester.addData(2);
+		tester.data = 2;
 		assertEquals(tester.data, 2);
 		
-		assertEquals(tester.getLeft(), null);
-		assertEquals(tester.getRight(), null);
+		tester.addColor("green");
+		assertEquals(tester.color, "green");
 		
-		treeNode tester2 = new treeNode(5);
+		tester.increment();
+		tester.increment();
+		tester.increment();
+		assertEquals(tester.count, 3);
+		
+		DAGnode tester2 = new DAGnode(5);
 		assertEquals(tester2.data, 5);
 		
-		tester2.addLeft(new treeNode(17));
-		assertEquals(tester2.getLeft().getData(), 17);
-		
-		tester2.addRight(new treeNode(15));
-		assertEquals(tester2.getRight().getData(), 15);
+		tester.addChild(tester2);
+		assertEquals(tester2.parents.get(0), tester);
+		assertEquals(tester.children.get(0), tester2);
 	}
+	
+	
 }
