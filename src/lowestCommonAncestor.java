@@ -101,10 +101,54 @@ class treeNode{
 		 count++;
 	 }
 	 
+	 public DAGnode lowestCommonAncestor(DAGnode p, DAGnode q) {
+		    if(p==q) {
+		    	return p;
+		    }
+		    
+		    if(p.parents == null && q.parents == null) {
+		    	return null;
+		    }
+		    
+		    if(p.parents == null || q.parents == null) {
+		    	return p;
+		    }
+		    
+		    String pColor = "red";
+		    colorAllAncestors(p, pColor);
+		    
+		    String qColor = "blue";
+		    colorAllCommonAncestors(q, qColor, pColor);
+		    
 	 
  }
+	 void colorAllAncestors(DAGnode theNode, String nodeColor) {
+		 if(theNode != null && nodeColor != null) {
+			 while (theNode.parents != null) {
+				 theNode.color = nodeColor;
+				 for(int i = 0; i < theNode.parents.size(); i++) {
+					 colorAllAncestors(theNode.parents.get(i), nodeColor);
+				 }
+			 }
+		 }
+		 
+	 }
+	 
+	 void colorAllCommonAncestors(DAGnode theNode, String newColor, String oldColor) {
+		 if(theNode != null && newColor != null && oldColor != null) {
+			 while (theNode.parents != null) {
+				 if(theNode.color == oldColor) {
+					 theNode.color = newColor;
+					 for(int i = 0; i < theNode.parents.size(); i++) {
+						 colorAllCommonAncestors(theNode.parents.get(i), newColor, oldColor);
+					 }
+				 }
+				 
+			 }
+		 }
+	 }
  
-
+ }
 public class lowestCommonAncestor {
 
 	public static void main(String[] args) {
