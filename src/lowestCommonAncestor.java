@@ -89,23 +89,29 @@ class DAGnode {
 	}
 
 	void addChild(DAGnode child) {
-		children.add(child);
-		child.parents.add(this);
+		if(this != null && child != null) {
+			children.add(child);
+			child.parents.add(this);
+		}
 	}
 
 	void addColor(String input) {
-		color = input;
+		if(this != null && input != null) {
+			color = input;
+		}
 	}
 
 	void increment() {
-		count++;
+		if(this != null) {
+			count++;
+		}
 	}
 	
 	//this method takes an inputed node, and gives all of its ancestors a color, recursively
 	
 	
 	void colorAllAncestors(DAGnode theNode, String nodeColor) {
-		if (nodeColor != null) {
+		if (this != null && nodeColor != null) {
 			if(theNode != null) {
 				theNode.color = nodeColor;
 				if (!theNode.parents.isEmpty()) {
@@ -121,7 +127,7 @@ class DAGnode {
 	//once one node has all of its ancestors colored, this goes and colors all the common ancestors a different color
 	
 	void colorAllCommonAncestors(DAGnode theNode, String newColor, String oldColor) {
-		if (newColor != null && oldColor != null) {
+		if (this != null && newColor != null && oldColor != null) {
 			if(theNode != null) {
 				if (theNode.color == oldColor) {
 					theNode.color = newColor;
@@ -139,7 +145,7 @@ class DAGnode {
 	//this method the parents of each common ancestor by one, leaving the least common ancestor(s) colored and with value 0
 	
 	void counting(DAGnode theNode, String theColor) {
-		if (theNode != null && theColor != null) {
+		if (this != null && theNode != null && theColor != null) {
 			if (!theNode.parents.isEmpty() && theNode.color == theColor) {
 				for (int i = 0; i < theNode.parents.size(); i++) {
 					theNode.parents.get(i).increment();
@@ -154,7 +160,7 @@ class DAGnode {
 	
 	//this recursively travels through the list appending all found LCAs to an arraylist
 	void findAnswers(DAGnode head, ArrayList<DAGnode> answers, String theColor){
-		if(head != null && answers != null && theColor != null) {
+		if(this != null && head != null && answers != null && theColor != null) {
 			if(head.color == theColor && head.count == 0) {
 				answers.add(head);
 			}
@@ -168,7 +174,7 @@ class DAGnode {
 	}
 
 	public ArrayList<DAGnode> lowestCommonAncestor(DAGnode head, DAGnode p, DAGnode q) {
-		if(head != null && p != null && q != null) {
+		if(this != null && head != null && p != null && q != null) {
 			ArrayList<DAGnode> lowestCommonAncestors = new ArrayList();
 			if (p.data == q.data) {
 				lowestCommonAncestors.add(p);
@@ -180,8 +186,15 @@ class DAGnode {
 			}
 
 			if (p.parents.isEmpty() || q.parents.isEmpty()) {
-				lowestCommonAncestors.add(p);
-				return lowestCommonAncestors;
+				if(p.parents.isEmpty()) {
+					lowestCommonAncestors.add(p);
+					return lowestCommonAncestors;
+				}
+				else {
+					lowestCommonAncestors.add(q);
+					return lowestCommonAncestors;
+				}
+				
 			}
 
 			String pColor = "red";
@@ -213,7 +226,8 @@ class DAGnode {
 public class lowestCommonAncestor {
 
 	public static void main(String[] args) {
-		/*
+		
+		/* Testing the DAG solution
 		DAGnode head = new DAGnode(0);
 		DAGnode node1 = new DAGnode(1);
 		DAGnode node2 = new DAGnode(2);

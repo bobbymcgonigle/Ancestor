@@ -129,6 +129,13 @@ class lowestCommonAncestorTest {
 	public void lowestCommonAncestorDAGTest() {
 		
 		DAGnode head = new DAGnode(0);
+		
+		ArrayList<DAGnode> myList= head.lowestCommonAncestor(head, head, head);
+		assertEquals(myList.get(0), head);
+		
+		ArrayList<DAGnode> myList1= head.lowestCommonAncestor(null, null, null);
+		assertEquals(myList1, null);
+		
 		DAGnode node1 = new DAGnode(1);
 		DAGnode node2 = new DAGnode(2);
 		DAGnode node3 = new DAGnode(3);
@@ -146,19 +153,35 @@ class lowestCommonAncestorTest {
 		
 		node3.addChild(node4);
 		
-		ArrayList<DAGnode> myList = head.lowestCommonAncestor(head, node4, node5);
+		ArrayList<DAGnode> myList2= head.lowestCommonAncestor(head, node4, node5);
 		
-		assertEquals(myList.get(0), node2);
-		assertEquals(myList.get(1), node1);
+		assertEquals(myList2.get(0), node2);
+		assertEquals(myList2.get(1), node1);
 		
-		ArrayList<DAGnode> myList2 = head.lowestCommonAncestor(head, node4, node4);
-		assertEquals(myList2.get(0), node4);
+		ArrayList<DAGnode> myList3 = head.lowestCommonAncestor(head, node4, node4);
+		assertEquals(myList3.get(0), node4);
 		
-		ArrayList<DAGnode> myList3 = head.lowestCommonAncestor(null, node4, node4);
-		assertEquals(myList3, null);
-		
-		ArrayList<DAGnode> myList4 = head.lowestCommonAncestor(head, null, node4);
+		ArrayList<DAGnode> myList4 = head.lowestCommonAncestor(null, node4, node4);
 		assertEquals(myList4, null);
+		
+		ArrayList<DAGnode> myList5 = head.lowestCommonAncestor(head, null, node4);
+		assertEquals(myList5, null);
+		
+		//two nodes with no parents
+		DAGnode head1 = new DAGnode(17);
+		DAGnode head2 = new DAGnode(18);
+		
+		ArrayList myList6 = head1.lowestCommonAncestor(head1, head1, head2);
+		assertEquals(myList6, null);
+		
+		//two nodes where one is the head and one is the parent
+		head2.parents.add(head1);
+		
+		ArrayList myList7 = head1.lowestCommonAncestor(head1, head1, head2);
+		assertEquals(myList7.get(0), head1);
+		
+		ArrayList myList8 = head1.lowestCommonAncestor(head1, head2, head1);
+		assertEquals(myList8.get(0), head1);
 		
 		
 	}
